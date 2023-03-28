@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/vue.js"></script>
+    <title>书籍购物车</title>
+    <style>
+      h2,
+      table {
+        width: 50%;
+        margin: 15px auto 0;
+        border-collapse: collapse;
+      }
+
+      caption {
+        color: skyblue;
+        font-weight: 700;
+      }
+
+      th {
+        border: 1px solid skyblue;
+        font-weight: 400;
+      }
+
+      tbody tr th:nth-last-child(1) {
+        color: tomato;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <template id="cpn">
+      <table>
+        <caption>
+          书籍购物车
+        </caption>
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>书名</th>
+            <th>单价</th>
+            <th>数量</th>
+            <th>小记</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(book, index) in books" :key="book.id">
+            <th>{{index + 1}}</th>
+            <th>{{book.name}}</th>
+            <th>{{formatPrice(book.price)}}</th>
+            <th>
+              <button :disabled="book.counter <= 0" v-on:click="decrement(index)">-</button>
+              <span>&nbsp;&nbsp;{{book.counter}}&nbsp;&nbsp;</span>
+              <button v-on:click="increment(index)">+</button>
+            </th>
+            <th>{{formatPrice(book.price * book.counter)}}</th>
+            <th v-on:click="remove(index)">移除</th>
+          </tr>
+        </tbody>
+      </table>
+      <h2>总价：{{formatPrice(totalPrice)}}</h2>
+    </template>
+
+    <script>
+      const App = {
+        template: '#cpn',
+        data() {
+          return {
+            books: [
+              {
+                id: 1,
+                name: '编程珠玑',
+                counter: 1,
+                price: 1.99
+              },
+              {
+                id: 2,
+                name: 'CV大法',
+                counter: 1,
+                price: 9.99
+              },
+              {
+                id: 1,
+                name: '手搓V8',
+                counter: 1,
+                price: 0.88
+              },
+              {
+                id: 1,
+                name: '脚踢browser',
+                counter: 1,
+                price: 0.99
+              }
+            ]
+          }
+        },
+        computed: {
+          // mapBooks() {
+          //   return this.books.map(item => {
+          //     const newItem = Object.assign(item)
+          //     newItem.price = '¥' + item.price
+          //     return newItem
+          //   })
+          // },
+          totalPrice() {
+            return this.books.reduce((preValue, curValue) => preValue + curValue.counter * curValue.price, 0).toFixed(2)
+          }
+        },
+        methods: {
+          formatPrice(price) {
+            return '¥' + price
+          },
+          decrement(index) {
+            this.books[index].counter--
+          },
+          increment(index) {
+            this.books[index].counter++
+          },
+          remove(index) {
+            this.books.splice(index, 1)
+          }
+        }
+      }
+
+      Vue.createApp(App).mount('#app')
+    </script>
+  </body>
+</html>

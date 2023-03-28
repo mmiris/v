@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/vue.js"></script>
+    <title>配置选项</title>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <template id="cpn">
+      <!-- computed -->
+      <h2>{{fullName}}</h2>
+
+      <!-- watch -->
+      <h2>{{info1.name}}</h2>
+      <button v-on:click="changeFullName">changeFullName</button>
+      <button v-on:click="changeInfo1">changeInfo1</button>
+      <button v-on:click="changeInfo2Name">changeInfo2Name</button>
+    </template>
+
+    <script>
+      const App = {
+        template: '#cpn',
+        data() {
+          return {
+            info1: {
+              name: 'shadow',
+              age: 2
+            },
+            info2: {
+              name: 'iris',
+              age: 1
+            }
+          }
+        },
+        computed: {
+          fullName: {
+            get() {
+              return this.info1.name + ' ' + this.info2.name
+            },
+            set(newValue) {
+              const arrayNewValue = newValue.split(' ')
+              this.info1.name = arrayNewValue[0]
+              this.info2.name = arrayNewValue[1]
+            }
+          }
+        },
+        watch: {
+          info1: [
+            'info1Change1',
+            function info1Change2(newValue, oldValue) {
+              console.log(`function2 -- newVlaue -> ${newValue.name} | oldValue -> ${oldValue.name}`)
+            },
+            {
+              handler(newValue, oldValue) {
+                console.log(`function3 -- newVlaue -> ${newValue.name} | oldValue -> ${oldValue.name}`)
+              },
+              deep: true
+            }
+          ],
+          'info2.name'(newValue, oldValue) {
+            console.log(`info2.value -- newVlaue -> ${newValue} | oldValue -> ${oldValue}`)
+          }
+        },
+        methods: {
+          changeFullName() {
+            this.fullName = 'blue fariy'
+          },
+          changeInfo1() {
+            this.info1 = { name: 'iris', age: 2 }
+          },
+          info1Change1(newValue, oldValue) {
+            console.log(`function1 -- newVlaue -> ${newValue.name} | oldValue -> ${oldValue.name}`)
+          },
+          changeInfo2Name() {
+            this.info2.name = 'fariy'
+          }
+        }
+      }
+
+      Vue.createApp(App).mount('#app')
+    </script>
+  </body>
+  <body></body>
+</html>

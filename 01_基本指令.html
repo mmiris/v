@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>基本指令</title>
+    <script src="./js/vue.js"></script>
+    <style>
+      [v-clock] {
+        display: none;
+      }
+
+      .color {
+        color: tomato;
+      }
+
+      .fontSize {
+        font-size: 28px;
+      }
+
+      .text {
+        text-decoration: underline;
+      }
+
+      .background {
+        background-color: skyblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <template id="cpn">
+      <div>
+        <!-- mustache -->
+        <h2>{{greeting}}</h2>
+
+        <!-- v-once -->
+        <h2 v-once>{{greeting}}</h2>
+        <button v-on:click="change">change</button>
+
+        <!-- v-text -->
+        <h2 v-text="greeting"></h2>
+
+        <!-- v-html -->
+        <div>{{show}}</div>
+        <div v-html="show"></div>
+
+        <!-- v-pre -->
+        <div v-pre>{{Hello Vue3!}}</div>
+
+        <!-- v-cloak -->
+        <div v-cloak>{{mustache}}</div>
+
+        <!-- v-bind object -->
+        <div v-bind:class="{color: color, fontSize: fontSize}">你好，打工仔！</div>
+        <div :="info">你好，打工仔！</div>
+
+        <!-- v-bind array -->
+        <div v-bind:class="[text, text == 'text' ? background : '']">上报错信息！！！</div>
+        <div v-bind:class="[{color: color}, {fontSize: fontSize}]">上报错信息！！！</div>
+
+        <!-- v-on -->
+        <button v-on:click="closeColor">closeColor</button>
+
+        <!-- event -->
+        <button v-on:click="showEvent($event, 'Vue3')">showEvent</button>
+
+        <!-- v-on.stop -->
+        <div v-on:click="first">
+          <button v-on:click="second">secondPropagation</button>
+          <button v-on:click.stop="third">thirdPropagation</button>
+        </div>
+
+        <!-- v-if -->
+        <input type="text" v-model="score" />
+        <template v-if="score > 90">
+          <h3>{{evaluate1}}</h3>
+          <h3>{{evaluate1}}</h3>
+          <h3>{{evaluate1}}</h3>
+        </template>
+        <h2 v-else-if="score > 60">{{evaluate2}}</h2>
+        <h1 v-else>{{evaluate3}}</h1>
+
+        <!-- v-show -->
+        <h2 v-show="isShow">{{score}}</h2>
+
+        <!-- v-for -->
+        <ul>
+          <li v-for="animal in animals">{{animal}}</li>
+          <li v-for="(animal, index) in animals" v-bind:key="index">{{index}}--{{animal}}</li>
+          <li v-for="(, index) of animals">{{index}}</li>
+          <li v-for="(value, key, index) in info">{{index}}--{{value}}--{{key}}</li>
+          <template v-for="value in info">
+            <li>{{value}}</li>
+          </template>
+        </ul>
+
+        <!-- 数组的变更 -->
+        <button v-on:click="addInformation">add information</button>
+      </div>
+    </template>
+
+    <script>
+      const app = {
+        template: '#cpn',
+        data() {
+          return {
+            greeting: 'Hello Vue3!',
+            show: '<h1>Talk is cheap, show me the code.</h1>',
+            mustache: 'none',
+            color: true,
+            fontSize: false,
+            info: {
+              name: 'shadow',
+              age: 2
+            },
+            text: 'text',
+            background: 'background',
+            score: 99,
+            evaluate1: '优秀',
+            evaluate2: '良好',
+            evaluate3: '垃圾～',
+            isShow: false,
+            animals: ['cat', 'dog', 'pig', 'bird'],
+            info: { name: 'shadow', age: 2, gender: 'male' }
+          }
+        },
+        methods: {
+          change() {
+            this.greeting = 'Hello Vue!'
+          },
+          closeColor() {
+            this.color = false
+          },
+          showEvent(event, params) {
+            console.log(params, ' -> ', event)
+          },
+          first() {
+            console.log('first propagation...')
+          },
+          second() {
+            console.log('second propagation...')
+          },
+          third() {
+            console.log('third propagation...')
+          },
+          addInformation() {
+            this.animals.push('butterfly', 'chicken', 'goose')
+            console.log('Done.')
+          }
+        }
+      }
+
+      Vue.createApp(app).mount('#app')
+    </script>
+  </body>
+</html>
