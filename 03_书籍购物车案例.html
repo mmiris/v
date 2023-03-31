@@ -101,13 +101,6 @@
           }
         },
         computed: {
-          // mapBooks() {
-          //   return this.books.map(item => {
-          //     const newItem = Object.assign(item)
-          //     newItem.price = '¥' + item.price
-          //     return newItem
-          //   })
-          // },
           totalPrice() {
             return this.books.reduce((preValue, curValue) => preValue + curValue.counter * curValue.price, 0).toFixed(2)
           }

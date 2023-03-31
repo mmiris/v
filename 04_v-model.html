@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/vue.js"></script>
+    <title>v-model</title>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <template id="cpn">
+      <!-- input -->
+      <input type="text" v-bind:value="text" v-on:input="input" />
+      <input type="text" v-model="text" />
+      <h3>{{text}}</h3>
+
+      <!-- textarea -->
+      <textarea cols="18" rows="2" v-model="textarea"></textarea>
+      <h3>{{textarea}}</h3>
+
+      <!-- checkbox single -->
+      <label>
+        <input type="checkbox" value="isAgree" v-model="isAgree" />
+        同意
+      </label>
+      <h3>{{isAgree}}</h3>
+
+      <!--  checkbox multi -->
+      <label>
+        <input type="checkbox" value="西瓜🍉" v-model="hobbies" />
+        西瓜🍉
+      </label>
+      <label>
+        <input type="checkbox" value="苹果🍎" v-model="hobbies" />
+        苹果🍎
+      </label>
+      <label>
+        <input type="checkbox" value="橘子🍊" v-model="hobbies" />
+        橘子🍊
+      </label>
+      <h3>{{hobbies}}</h3>
+
+      <!-- radio -->
+      <label>
+        <input type="radio" name="gender" value="male" v-model="gender" />
+        male
+      </label>
+      <label>
+        <input type="radio" name="gender" value="female" v-model="gender" />
+        female
+      </label>
+      <h3>{{gender}}</h3>
+
+      <!-- select -->
+      <select v-model="option">
+        <option value="冬瓜">冬瓜</option>
+        <option value="西瓜">西瓜</option>
+        <option value="傻瓜">傻瓜</option>
+      </select>
+      <h3>{{option}}</h3>
+
+      <!-- 修饰符 lazy -->
+      <input type="text" v-model.lazy="text2" />
+      <h3>{{text2}}</h3>
+
+      <!-- 修饰符 number -->
+      <input type="text" v-model="text3" />
+      <button v-on:click="showType">showType</button>
+      <br />
+      <br />
+      <input type="text" v-model.number="text4" />
+      <button v-on:click="showType2">showType2</button>
+    </template>
+
+    <script>
+      const App = {
+        template: '#cpn',
+        data() {
+          return {
+            text: 'Please enter a text.',
+            textarea: '高屋建瓴',
+            isAgree: false,
+            hobbies: ['西瓜🍉'],
+            gender: 'male',
+            option: '傻瓜',
+            text2: 'lazy',
+            text3: 'none',
+            text4: 'number'
+          }
+        },
+        methods: {
+          input(e) {
+            this.text = e.target.value
+          },
+          showType() {
+            console.log(this.text3, typeof this.text3)
+          },
+          showType2() {
+            console.log(this.text4, typeof this.text4)
+          }
+        }
+      }
+
+      Vue.createApp(App).mount('#app')
+    </script>
+  </body>
+</html>

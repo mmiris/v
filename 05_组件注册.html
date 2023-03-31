@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/vue.js"></script>
+    <title>组件注册</title>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <template id="cpn">
+      <h2>{{name}}</h2>
+      <cpn-two></cpn-two>
+      <cpn-three></cpn-three>
+      <cpn-four></cpn-four>
+    </template>
+
+    <template id="cpn2">
+      <h2>{{name}}</h2>
+    </template>
+
+    <template id="cpn3">
+      <h2>{{name}}</h2>
+      <cpn-four></cpn-four>
+    </template>
+
+    <template id="cpn4">
+      <h2>{{name}}</h2>
+    </template>
+
+    <script>
+      const cpn = {
+        template: '#cpn',
+        data() {
+          return {
+            name: '组件1'
+          }
+        }
+      }
+
+      const cpn2 = {
+        template: '#cpn2',
+        data() {
+          return {
+            name: '组件2'
+          }
+        }
+      }
+
+      const cpn3 = {
+        template: '#cpn3',
+        data() {
+          return {
+            name: '组件3'
+          }
+        }
+      }
+
+      const cpn4 = {
+        template: '#cpn4',
+        data() {
+          return {
+            name: '组件4'
+          }
+        }
+      }
+
+      const App = {
+        template: '#cpn',
+        components: {
+          CpnTwo: cpn2,
+          CpnThree: cpn3
+        },
+        data() {
+          return {
+            name: '根组件'
+          }
+        }
+      }
+
+      const app = Vue.createApp(App)
+
+      app.component('CpnFour', cpn4)
+
+      app.mount('#app')
+    </script>
+  </body>
+</html>
