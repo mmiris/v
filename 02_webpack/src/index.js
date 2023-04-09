@@ -35,7 +35,7 @@ console.log(greeting)
 
 if (module.hot) {
   module.hot.accept('./js/show', () => {
-    console.log('show was updated.')
+    console.log('show is now updated.')
   })
 }
 
