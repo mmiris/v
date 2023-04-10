@@ -25,7 +25,7 @@ export default {
     return {
       navigations: ['assets', 'resume'],
       currentTab: 'profile-assets',
-      amount: 9 ** (9 ** 9),
+      amount: 0,
       house: 'White House'
     }
   },
