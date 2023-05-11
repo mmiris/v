@@ -1,8 +1,9 @@
 <template>
   <h1>{{ amount }}</h1>
   <button v-on:click="increase">INCREASE</button>
+  <h2>{{ animateAmount.toFixed(0) }}</h2>
   <hr />
-  <input type="text" :value="animateAmount.toFixed(0)" v-on:input="changeAmount" />
+  <input type="text" :value="modelValue" v-on:input="changeAmount" />
   <br />
   <input type="text" v-model="house" />
 </template>
@@ -35,7 +36,6 @@ export default {
     },
     changeAmount(e) {
       this.$emit('update:modelValue', e.target.value)
-      console.log(e)
     }
   },
   watch: {

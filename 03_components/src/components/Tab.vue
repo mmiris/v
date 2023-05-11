@@ -14,25 +14,25 @@ export default {
         console.log('shadow, welcome!')
       }
       return true
-    },
+    }
   },
   props: {
     titles: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
-      currentIndex: 0,
+      currentIndex: 0
     }
   },
   methods: {
     switchTab(index) {
       this.currentIndex = index
       this.$emit('switchTab', index)
-    },
-  },
+    }
+  }
 }
 </script>
 
