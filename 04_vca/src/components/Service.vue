@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUpdated } from 'vue'
+import { ref, onMounted, onUpdated, provide } from 'vue'
 import { useLocalStorage, useTitle } from '@/hooks'
 
 let addr = ref('天那边')
@@ -35,4 +35,8 @@ let title = useTitle()
 const changeTitle = () => {
   title.value = '哈哈哈'
 }
+
+let navs = ref(['石国', '火国', '上界'])
+
+provide('navs', navs)
 </script>
