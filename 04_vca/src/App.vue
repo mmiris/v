@@ -1,38 +1,43 @@
 <template>
-  <h2>{{ gretting }}</h2>
-  <h2>obj.greeting: {{ obj.gretting.value }}</h2>
-  <h2>info.gretting: {{ info.gretting }}</h2>
-  <h2>info: {{ info.name }}</h2>
-  <h2>readonlyInfo: {{ readonlyInfo.name }}</h2>
-  <button v-on:click="assignInfo">AssignInfo</button>
-  <home :readonlyInfo="readonlyInfo"></home>
+  <nav-bar :navigations="navigations" v-on:switchTab="switchTab"></nav-bar>
+  <component :is="nav"> </component>
 </template>
 
 <script>
+import { ref } from 'vue'
+import NavBar from '@/components/NavBar.vue'
 import Home from '@/components/Home.vue'
-import { reactive, readonly, ref } from 'vue'
+import About from '@/components/About.vue'
+import Service from './components/Service.vue'
+import Profile from '@/components/Profile.vue'
 
 export default {
   components: {
-    Home
+    NavBar,
+    Home,
+    About,
+    Profile,
+    Service
   },
   setup() {
-    const gretting = ref('Hello, Vue Composition API!')
-    const obj = { gretting }
-    const info = reactive({ name: 'shadow', age: 1, gretting })
-    const readonlyInfo = readonly(info)
-
-    const assignInfo = () => {
-      info.name = 'iris'
+    const navigations = ref(['home', 'about', 'service', 'entertainment', 'profile'])
+    const nav = ref('home')
+    const switchTab = (navParams) => {
+      nav.value = navParams
+      console.log(nav.value)
     }
 
     return {
-      gretting,
-      obj,
-      info,
-      readonlyInfo,
-      assignInfo
+      navigations,
+      nav,
+      switchTab
     }
   }
 }
 </script>
+
+<style>
+body {
+  margin-bottom: 120px;
+}
+</style>
