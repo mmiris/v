@@ -9,6 +9,7 @@ import NavBar from '@/components/NavBar.vue'
 import Home from '@/components/Home.vue'
 import About from '@/components/About.vue'
 import Service from './components/Service.vue'
+import Entertainment from './components/Entertainment.vue'
 import Profile from '@/components/Profile.vue'
 
 export default {
@@ -16,11 +17,18 @@ export default {
     NavBar,
     Home,
     About,
-    Profile,
-    Service
+    Service,
+    Entertainment,
+    Profile
   },
   setup() {
-    const navigations = ref(['home', 'about', 'service', 'entertainment', 'profile'])
+    const navigations = ref([
+      'home',
+      'about',
+      'service',
+      'entertainment',
+      'profile'
+    ])
     const nav = ref('home')
     const switchTab = (navParams) => {
       nav.value = navParams
