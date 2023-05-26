@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <title>page</title>
+    <style>
+      .iris {
+        color: tomato;
+      }
+
+      .shadow {
+        color: skyblue;
+      }
+
+      .naive {
+        background-color: turquoise;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="./renderer.js"></script>
+
+    <script>
+      let vnode = h('div', { class: ['shadow'], name: 'shadow' }, [
+        h('p', null, 'Renderer'),
+        h(
+          'button',
+          {
+            class: ['shadow'],
+            onClick: () => {
+              console.log('啊哈哈哈哈')
+            }
+          },
+          '点击'
+        )
+      ])
+
+      let vnode1 = h('div', { class: ['iris'] }, [
+        h('div', null, 'Renderer1'),
+        h(
+          'button',
+          {
+            class: ['naive'],
+            onClick: () => {
+              console.log('啊哈哈哈哈呵呵呵呵')
+            }
+          },
+          '点击1'
+        ),
+        h('p', { class: ['shadow'] }, '完美世界')
+      ])
+
+      mount(vnode, document.querySelector('#app'))
+
+      setTimeout(() => {
+        patch(vnode1, vnode)
+      }, 3000)
+    </script>
+  </body>
+</html>
