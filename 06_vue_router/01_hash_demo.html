@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <title>hash_demo</title>
+  </head>
+
+  <body>
+    <a href="#/home">home</a>
+    <a href="#/about">about</a>
+    <h2>default</h2>
+
+    <script>
+      const h2El = document.querySelector('h2')
+
+      window.addEventListener('hashchange', () => {
+        console.log(location.hash)
+        switch (location.hash) {
+          case '#/home':
+            h2El.innerHTML = 'Home'
+            break
+          case '#/about':
+            h2El.innerHTML = 'About'
+            break
+          default:
+            console.log('Unkown hash.')
+        }
+      })
+    </script>
+  </body>
+</html>
