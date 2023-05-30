@@ -1,8 +1,10 @@
 <template>
   <router-link to="/home" class="router" active-class="active">Home</router-link>
   <router-link :to="'/profile/' + user" class="router" active-class="active">Profile</router-link>
+  <router-link to="/login" class="router" active-class="active">Login</router-link>
   <button v-on:click="changeView">Profile</button>
   <h5>{{ $route.fullPath }}</h5>
+  <button v-on:click="removeLogin">removeLogin</button>
   <router-view></router-view>
 </template>
 
@@ -13,7 +15,7 @@ import { useRouter } from 'vue-router'
 export default {
   setup() {
     const user = ref('shadow')
-    const router = useRouter()
+    let router = useRouter()
     const changeView = () => {
       // router.push('/profile/shadow')
       router.push({
@@ -25,7 +27,11 @@ export default {
       })
     }
 
-    return { user, changeView }
+    const removeLogin = () => {
+      router.removeRoute('login')
+    }
+
+    return { user, changeView, removeLogin }
   }
 }
 </script>

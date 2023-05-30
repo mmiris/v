@@ -27,10 +27,6 @@ const routes = [
         name: 'goods'
       },
       {
-        path: 'goods',
-        component: () => import('@/views/HomeGoods.vue')
-      },
-      {
         path: 'recommendation',
         component: () => import('@/views/HomeRecommendation.vue')
       }
@@ -43,5 +39,29 @@ const routes = [
 ]
 
 const router = createRouter({ routes, history: createWebHistory() })
+
+const loginRoute = {
+  path: '/login',
+  component: () => import('@/views/Login.vue'),
+  name: 'login'
+}
+
+const goodsRoute = {
+  path: 'goods',
+  component: () => import('@/views/HomeGoods.vue')
+}
+
+router.addRoute(loginRoute)
+router.addRoute('home', goodsRoute)
+
+router.beforeEach((to, from) => {
+  if (to.path !== '/login') {
+    if (!localStorage.getItem('token')) {
+      return {
+        path: '/login'
+      }
+    }
+  }
+})
 
 export default router
