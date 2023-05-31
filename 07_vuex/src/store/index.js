@@ -1,4 +1,6 @@
 import { createStore } from 'vuex'
+import about from './about'
+import profile from './profile'
 import { INCREMENT_AGE, DECREMENT_AGE } from './mutationsTypes'
 
 const store = createStore({
@@ -36,7 +38,22 @@ const store = createStore({
     },
     [DECREMENT_AGE]: (state, payload) => {
       state.age -= payload.number
+    },
+    multiplyAge(state, payload) {
+      state.age *= payload.number
     }
+  },
+  actions: {
+    multiplyAge({ commit, dispatch, state, rootState, getters, rootGetters }, payload) {
+      return new Promise((resolve, reject) => {
+        commit('multiplyAge', payload)
+        resolve(`恭喜你，少奋斗了 ${state.age} 年！`)
+      })
+    }
+  },
+  modules: {
+    about,
+    profile
   }
 })
 

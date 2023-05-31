@@ -10,6 +10,7 @@
     </template>
     <button v-on:click="incrementAge({ number: 1 })">incrementAge</button>
     <button v-on:click="decrementAge({ number: 1 })">decrementAge</button>
+    <button v-on:click="multiplyAge({ number: 2 })">mutiplyAge</button>
     <!-- <h2>totalScores >> {{ $store.getters.totalScores }}</h2>
     <h2>realTotalScores >> {{ $store.getters.realTotalScores }}</h2>
     <h2>totalMoreNScores >> {{ $store.getters.totalMoreNScores(100) }}</h2> -->
@@ -21,7 +22,7 @@
 
 <script>
 // import { computed } from 'vue'
-// import { useStore, mapGetters } from 'vuex'
+import { useStore, mapGetters } from 'vuex'
 import store from '@/store'
 import { useMapState, useMapGetters } from '@/hooks'
 import { INCREMENT_AGE, DECREMENT_AGE } from '@/store/mutationsTypes'
@@ -34,7 +35,7 @@ export default {
   setup() {
     // const totalScores = computed(() => store.getters.totalScores)
 
-    // const store = useStore()
+    const store = useStore()
 
     // let storeGetters = {}
     // const storeGettersFns = mapGetters(['totalScores', 'realTotalScores', 'totalMoreNScores'])
@@ -52,12 +53,17 @@ export default {
     //   store.commit(DECREMENT_AGE, payload)
     // }
 
+    const multiplyAge = (payload) => {
+      store.dispatch('multiplyAge', payload).then((res) => console.log(res))
+    }
+
     return {
       // totalScores,
       ...storeGetters,
       ...storeState,
       // incrementAge,
       // decrementAge,
+      multiplyAge,
       ...mapMutations({ incrementAge: INCREMENT_AGE, decrementAge: DECREMENT_AGE })
     }
   }
