@@ -44,4 +44,84 @@ function add(n1: number, n2: number, fn: (el1: number, el2: number) => number) {
 
 console.log(add(1, 2, (n1, n2) => n1 + n2))
 
+function foo1(el1: number, el2: number = 12): number {
+  return el1 + el2
+}
+
+console.log(foo1(1))
+
+type CatType = { name: string; catchMice: () => string }
+type DogType = { name: string; watchOverTheHouse: () => string }
+
+const cat: CatType = {
+  name: 'shadow',
+  catchMice() {
+    return 'successful!'
+  }
+}
+
+const dog: DogType = {
+  name: 'naive',
+  watchOverTheHouse() {
+    return 'successful!'
+  }
+}
+
+function foo2(animal: CatType | DogType) {
+  let result: string = ''
+  // result = (animal as DogType).watchOverTheHouse()
+  if ('watchOverTheHouse' in animal) {
+    result = animal.watchOverTheHouse()
+  } else {
+    result = animal.catchMice()
+  }
+
+  return result
+}
+
+console.log(foo2(dog))
+console.log(foo2(cat))
+
+type InfoType = {
+  name: string
+  age: number
+  freind?: {
+    name: string
+    age?: number
+  }
+}
+
+const info1: InfoType = {
+  name: 'shadow',
+  age: 2
+}
+
+function foo3(el: InfoType) {
+  // console.log(el.freind!.age)
+  console.log(el.freind?.age)
+}
+
+foo3(info1)
+
+const variable7: string | null = null
+const variable8: string | undefined = undefined
+
+const variable9 = variable7 ?? 'naive'
+const variable10 = variable8 ?? 'naive'
+
+console.log(variable9)
+console.log(variable10)
+
+const data = {
+  url: 'mmiris.dev',
+  method: 'POST'
+} as const
+
+function request(url: string, method: 'GET' | 'POST') {
+  console.log('successful!')
+}
+
+// request(data.url, data.method as 'GET')
+request(data.url, data.method)
+
 export {}
