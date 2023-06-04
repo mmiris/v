@@ -66,3 +66,31 @@ class Bar implements Atype, BType {
 }
 
 console.log(new Bar('shadow').foo(1))
+
+enum Direction {
+  LEFT,
+  RIGHT,
+  TOP = 'TOP',
+  BOTTOM = 'BOTTOM'
+}
+
+const turn: (drection: Direction) => void = (direction: Direction) => {
+  switch (direction) {
+    case Direction.LEFT:
+      console.log(Direction.LEFT)
+      break
+    case Direction.RIGHT:
+      console.log(Direction.RIGHT)
+      break
+    case Direction.TOP:
+      console.log(Direction.TOP)
+      break
+    case Direction.BOTTOM:
+      console.log(Direction.BOTTOM)
+      break
+    default:
+      const check: never = direction
+  }
+}
+
+turn(Direction.TOP)
